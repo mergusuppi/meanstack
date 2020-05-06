@@ -16,11 +16,11 @@ router.post('/', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    User.findOne({ email: req.body.email }, (err, data) => {
+    Student.findOne({ email: req.body.email }, (err, data) => {
         if (err) {
             res.status(500).json(err);
         } else if (data) {
-            User.checkPassword(req.body.password, data.password, (err, result) => {
+            Student.checkPassword(req.body.password, data.password, (err, result) => {
                 if (result) return res.json('login successfully');
                 if (err) return res.status(500).json(err);
                 return res.json('invalid password');
