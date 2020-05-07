@@ -1,0 +1,24 @@
+.form-inline{
+    display: inline-block;
+}
+.container{
+    text-align: center;
+}
+input{
+    /* display: block; */
+    margin: 10px;
+    border-radius: 10px;
+    padding: 10px;
+}
+button{
+    padding: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: rgb(11, 219, 11);
+    border-radius: 10px;
+}
+
+.form-inline{
+    margin: 20px;
+
+}
