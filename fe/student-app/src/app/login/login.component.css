@@ -11,14 +11,17 @@ input{
     padding: 10px;
 }
 button{
-    padding: 8px;
+    padding: 5px 15px;
     font-size: 15px;
     font-weight: 600;
-    background-color: rgb(11, 219, 11);
+    background-color: rgb(37, 146, 219);
     border-radius: 10px;
+}
+h3{
+    margin: 20px 0px 0px 0px;
 }
 
 .form-inline{
-    margin: 20px;
+    margin: 15px;
 
 }
