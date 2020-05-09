@@ -1,10 +1,11 @@
 <div class="container">
+  <form class="form-inline" [formGroup]="loginForm" (ngSubmit)="loginUser()">
   <h3>LOGIN</h3>
-  <form class="form-inline">
-    <p><img src="mail.jpg" width="15px" height="15px">
-      <input type=" email" placeholder="Username"></p>
-    <p><img src="pw.jpg" width="15px" height="15px">
-      <input type="password" placeholder="password"></p>
+      <input type="email" placeholder="example@abc.com" formControlName="email">
+      <input type="password" placeholder="Password" formControlName="password">
     <button type="submit">Login</button>
   </form>
 </div>
+<!-- <input type="text" [formControl]="name">
+value:{{name.value}}
+<button (click)="updateName()">update</button> -->

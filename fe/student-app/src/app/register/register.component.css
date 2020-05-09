@@ -1,5 +1,12 @@
 .form-inline {
   display: inline-block;
+  padding: 40px 15px;
+  margin: 15px;
+  background-image: url("bg.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .container {
   text-align: center;
@@ -17,7 +24,9 @@ button {
   background-color: rgb(37, 146, 219);
   border-radius: 10px;
 }
-
-.form-inline {
-  margin: 15px;
+h3 {
+  margin: 20px 0px ;
+}
+div a{
+  color:black;
 }

@@ -1,27 +1,30 @@
-.form-inline{
-    display: inline-block;
+.form-inline {
+  display: inline-block;
+  background-image: url("bg.jpg");
+  padding: 40px 15px;
+  margin: 15px;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-.container{
-    text-align: center;
+.container {
+  text-align: center;
 }
-input{
-    /* display: block; */
-    margin: 10px;
-    border-radius: 10px;
-    padding: 10px;
+input {
+  display: block;
+  margin: 10px;
+  border-radius: 10px;
+  padding: 10px;
 }
-button{
-    padding: 5px 15px;
-    font-size: 15px;
-    font-weight: 600;
-    background-color: rgb(37, 146, 219);
-    border-radius: 10px;
+button {
+  padding: 5px 15px;
+  font-size: 15px;
+  font-weight: 600;
+  background-color: rgb(37, 146, 219);
+  border-radius: 10px;
 }
-h3{
-    margin: 20px 0px 0px 0px;
+h3 {
+  margin: 20px 0px ;
 }
 
-.form-inline{
-    margin: 15px;
-
-}
