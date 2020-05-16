@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
+  errorMessage: String;
   registerForm = new FormGroup({
     firstname: new FormControl(''),
     lastname: new FormControl(''),
@@ -23,11 +23,18 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
   registerUser() {
-    console.log(this.registerForm.value);
-    this.userService.register(this.registerForm.value);
-    this.registerForm.reset();
+    this.errorMessage = '';
+    this.userService.register(this.registerForm.value).subscribe((data) => {
+      if (data) {
+        this.onClick();
+      }
+    }, (err) => {
+      console.log('errr :: ', err.error.message)
+      this.errorMessage = err ? err.error.message : 'something went wrong';
+    });
+    // this.registerForm.reset();
   }
-  onClick():void{
+  onClick(): void {
     this.router.navigate(['/login']);
   }
 }

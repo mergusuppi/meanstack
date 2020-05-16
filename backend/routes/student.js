@@ -2,18 +2,28 @@ const emailCheck = require('email-check')
 const express = require('express');
 const router = express.Router();
 const { Student } = require('../models');
+function success(res, data) {
+    res.json(data);
+}
+
+function serverError(res, err) {
+    res.status(500).json(err);
+}
+
+function badResponse(res, data) {
+    res.status(400).json(data);
+
+}
 
 router.post('/', (req, res) => {
     Student.findOne({ email: req.body.email }, function (err, data) {
         if (err) {
-            res.status(500).json(err);
-        }
-        if (data) {
-            res.json({ message: "The email address is already exist" });
-        }
-        else {
+            serverError(res, err);
+        } else if (data) {
+            badResponse(res, { message: "The email address is already exist" });
+        } else {
             Student.create(req.body).then((data) => {
-                res.send(data);
+                success(res, data);
             });
         }
     })
@@ -23,20 +33,20 @@ router.post('/', (req, res) => {
 router.post('/login', (req, res) => {
     Student.findOne({ email: req.body.email }, (err, data) => {
         if (err) {
-            res.status(500).json(err);
+            // res.status(500).json(err);
+            serverError(res, err);
         } else if (data) {
             Student.checkPassword(req.body.password, data.password, (err, result) => {
                 if (result) {
-                    return res.json('login successfully');
+                    return success(res, { message: 'login successfully' });
                 }
                 if (err) {
-                    return res.json('invalid password');
+                    return badResponse(res, { message: 'invalid password' });
                 }
             });
-            // success
         } else {
             // user not found
-            res.json('user not found')
+            badResponse(res, { message: 'user not found' });
         }
     });
 })
@@ -44,9 +54,10 @@ router.post('/login', (req, res) => {
 router.get('/', (req, res) => {
     Student.find({}, (err, data) => {
         if (err) {
-            res.status(500).json(err);
+            // res.status(500).json(err);
+            serverError(res, err);
         } else {
-            res.json(data)
+            success(res, data)
         }
     });
 })
@@ -56,13 +67,13 @@ router.put('/', (req, res) => {
         if (data) {
             Student.updateOne({ _id: data._id }, { $set: { password: req.body.password } }, (err, data) => {
                 if (err) {
-                    res.status(500).json(err)
+                    serverError(res, err)
                 } else {
-                    res.json("password updated succesfully")
+                    success(res, { message: 'password updated succesfully' });
                 }
             })
         } else {
-            res.status(500).json(err ? err : "email not found");
+            serverError(res, err ? err : { message: 'email not found' });
         }
     })
 })

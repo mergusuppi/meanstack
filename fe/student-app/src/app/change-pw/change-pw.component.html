@@ -1,11 +1,39 @@
 <div class="container">
-<form class="form-inline" [formGroup]="changepwForm" (ngSubmit)="changepwUser()">
-  <!-- <h3>CHANGE PASSWORD</h3> -->
-    <input type="email" placeholder="Enter email address" formControlName="email">
-    <input type="password" placeholder="Enter new password" formControlName="password">
-    <input type="password" placeholder="Confirm password" formControlName="confirm"> 
+  <form class="form-inline" [formGroup]="changepwForm" (ngSubmit)="changepwUser()">
+    <!-- <h3>CHANGE PASSWORD</h3> -->
+    <div class="form-group">
+      <input type="email" placeholder="Enter email address" formControlName="email" required>
+      <span *ngIf="changepwForm.invalid && (changepwForm.controls.email.dirty || changepwForm.controls.email.touched)"
+        class="alert alert-danger">
+        <span *ngIf="changepwForm.hasError('required', 'email')">Please enter email address</span>
+        <span *ngIf="changepwForm.controls.email.invalid && changepwForm.controls.email.value !== ''">Please enter valid
+          email address</span>
+      </span>
+    </div>
+    <div class="form-group">
+      <input type="password" placeholder="Enter new password" formControlName="password" required>
+      <span
+        *ngIf="changepwForm.controls.password.invalid && (changepwForm.controls.password.dirty || changepwForm.controls.password.touched)"
+        class="alert alert-danger">Please enter password</span>
+    </div>
+    <div class="form-group">
+      <input type="password" placeholder="Confirm password" formControlName="confirm">
+      <span
+        *ngIf="changepwForm.invalid && (changepwForm.controls.confirm.dirty || changepwForm.controls.confirm.touched)"
+        class="alert alert-danger">
+        <span *ngIf="changepwForm.hasError('required', 'confirm')">Please enter confirm password</span>
+        <span *ngIf="changepwForm.hasError('misMatch')">Confirm password mismatched</span>
+      </span>
+    </div>
     <button class="btn" (click)="resetForm()">Reset</button>
     <button class="btn">Submit</button>
   </form>
-</div>
+  <!-- <p>
+    Formstatus:{{changepwForm.status}}
+    {{ changepwForm.hasError('misMatch')}}
+  </p>
+  <p>
+    Form data: {{changepwForm.value | json}}
+  </p> -->
 
+</div>

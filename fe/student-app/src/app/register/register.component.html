@@ -1,6 +1,7 @@
 <div class="container">
     <form class="form-inline" [formGroup]="registerForm" (ngSubmit)="registerUser()">
         <h3>REGISTER</h3>
+        <span class="error" *ngIf="errorMessage">{{errorMessage}}</span>
         <input type="text" placeholder="Firstname" formControlName="firstname">
         <input type="text" placeholder="Lastname" formControlName="lastname">
         <input type="text" placeholder="Contact" formControlName="contact">
