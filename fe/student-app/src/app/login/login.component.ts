@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
+import { UserService } from '../user.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-login',
@@ -8,18 +10,24 @@ import {FormGroup, FormControl } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   // name = new FormControl('supriya');
-  loginForm=new FormGroup({
-    email:new FormControl(''),
-    password:new FormControl('')
+  loginForm = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl('')
   });
-  constructor() { }
-
+  constructor(private userService: UserService,
+    private _router: Router
+  ) { }
   ngOnInit() {
   }
-  loginUser(){
+  loginUser() {
     console.log(this.loginForm.value);
+    this.userService.authenticate(this.loginForm.value);
+    this.loginForm.reset();
   }
-// updateName(){
-//   this.name.setValue('')
-// }
+  onButtonClick():void{
+    this._router.navigate(['/changepw']);
+  }
+  // updateName(){
+  //   this.name.setValue('')
+  // }
 }

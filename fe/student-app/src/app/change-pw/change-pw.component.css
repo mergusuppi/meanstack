@@ -15,29 +15,18 @@ input {
   display: block;
   margin: 10px;
   border-radius: 10px;
-  border: 0px;
   padding: 10px;
+  border: 0px;
 }
-
-h3 {
-  margin: 20px 0px ;
-}
-.submitBtn {
+.btn {
   padding: 5px 15px;
   font-size: 15px;
   font-weight: 600;
   background-color: rgb(37, 146, 219);
   border-radius: 10px;
-  margin: 5px;
   border: 1px solid black;
+  margin-left: 7px;
 }
-.changepwBtn{
-  border: 0px;
-  background: 0px;
-  display: block;
-  margin: 5px;
+h3 {
+  margin: 20px 0px;
 }
-.buttons{
-  display: inline-block;
-}
-

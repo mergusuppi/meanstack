@@ -9,33 +9,46 @@ const studentSchema = new mongoose.Schema({
     contact: Number,
     email: {
         type: String,
+        index: { unique: true },
         createIndexes: { unique: true },
         required: true
     },
     password: {
         type: String,
-        createIndexes: { unique: true },
         required: true
     }
-    });
+});
 
-    studentSchema.pre('save', function (next) {
-        const user = this;
-        bcrypt.genSalt(saltRounds, function (err, salt) {
+function encryptPassword(user, next){
+    bcrypt.genSalt(saltRounds, function (err, salt) {
+        if (err) return next(err);
+        bcrypt.hash(user.password, salt, function (err, data) {
             if (err) return next(err);
-            bcrypt.hash(student.password, salt, function (err, data) {
-                if (err) return next(err);
-                student.password = data;
-                next();
-            });
+            user.password = data;
+            next();
         });
     });
-    studentSchema.static('checkPassword', function (password, hash, cb) {
-        bcrypt.compare(password, hash, cb);
-    });
-    
+}
+
+function userPreHook(next) {
+    const user = this;
+    encryptPassword(user, next);
+}
+
+function updatePassword(next) {
+    // update the password in encryption mode
+    const user = this.getUpdate().$set;
+    encryptPassword(user, next);
+}
+
+studentSchema.pre('save', userPreHook);
+studentSchema.pre('updateOne', updatePassword);
+
+studentSchema.static('checkPassword', function (password, hash, cb) {
+    bcrypt.compare(password, hash, cb);
+});
+
 const student = mongoose.model('student', studentSchema);
 
 module.exports = student;
 
-    

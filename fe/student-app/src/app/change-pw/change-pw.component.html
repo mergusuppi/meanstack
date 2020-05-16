@@ -1,0 +1,11 @@
+<div class="container">
+<form class="form-inline" [formGroup]="changepwForm" (ngSubmit)="changepwUser()">
+  <!-- <h3>CHANGE PASSWORD</h3> -->
+    <input type="email" placeholder="Enter email address" formControlName="email">
+    <input type="password" placeholder="Enter new password" formControlName="password">
+    <input type="password" placeholder="Confirm password" formControlName="confirm"> 
+    <button class="btn" (click)="resetForm()">Reset</button>
+    <button class="btn">Submit</button>
+  </form>
+</div>
+

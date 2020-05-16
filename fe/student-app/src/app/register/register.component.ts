@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import{FormControl,FormGroup} from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -8,18 +10,24 @@ import{FormControl,FormGroup} from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  registerForm=new FormGroup({
-    firstname:new FormControl(''),
-    lastname:new FormControl(''),
-    contact:new FormControl(''),
-    email:new FormControl(''),
-    password:new FormControl('')
+  registerForm = new FormGroup({
+    firstname: new FormControl(''),
+    lastname: new FormControl(''),
+    contact: new FormControl(''),
+    email: new FormControl(''),
+    password: new FormControl('')
   });
-  constructor() { }
+  constructor(private userService: UserService,
+    private router: Router) { }
 
   ngOnInit() {
   }
-  registerUser(){
+  registerUser() {
     console.log(this.registerForm.value);
+    this.userService.register(this.registerForm.value);
+    this.registerForm.reset();
+  }
+  onClick():void{
+    this.router.navigate(['/login']);
   }
 }

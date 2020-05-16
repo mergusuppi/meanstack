@@ -1,9 +1,11 @@
 <div class="container">
   <form class="form-inline" [formGroup]="loginForm" (ngSubmit)="loginUser()">
-  <h3>LOGIN</h3>
-      <input type="email" placeholder="example@abc.com" formControlName="email">
-      <input type="password" placeholder="Password" formControlName="password">
-    <button type="submit">Login</button>
+    <h3>LOGIN</h3>
+    <input type="email" placeholder="example@abc.com" formControlName="email">
+    <input type="password" placeholder="Password" formControlName="password">
+    <div class="buttons">
+      <button type="submit" class="submitBtn">Login</button>
+      <button class="changepwBtn" (click)="onButtonClick()">Change password</button></div>
   </form>
 </div>
 <!-- <input type="text" [formControl]="name">
