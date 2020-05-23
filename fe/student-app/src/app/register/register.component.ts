@@ -32,6 +32,7 @@ export class RegisterComponent implements OnInit {
     const { password, confirm } = group.value;
     return password === confirm ? null : { misMatch: true }
   }
+
   registerUser() {
     this.errorMessage = '';
     this.userService.register(this.registerForm.value).subscribe((data) => {
