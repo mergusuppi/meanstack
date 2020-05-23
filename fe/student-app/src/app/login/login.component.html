@@ -1,13 +1,23 @@
 <div class="container">
   <form class="form-inline" [formGroup]="loginForm" (ngSubmit)="loginUser()">
     <h3>LOGIN</h3>
-    <input type="email" placeholder="example@abc.com" formControlName="email">
-    <input type="password" placeholder="Password" formControlName="password">
+    <div>
+      <input type="email" placeholder="example@abc.com" formControlName="email">
+      <span *ngIf="loginForm.invalid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)"
+        class="alert alert-danger">
+        <span *ngIf="loginForm.hasError('required', 'email')">Please enter email address</span>
+        <span *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.value !== ''">Please enter valid
+          email address</span>
+      </span>
+    </div>
+    <div>
+      <input type="password" placeholder="Password" formControlName="password">
+      <span
+        *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)"
+        class="alert alert-danger">Please enter password</span>
+    </div>
     <div class="buttons">
       <button type="submit" class="submitBtn">Login</button>
       <button class="changepwBtn" (click)="onButtonClick()">Change password</button></div>
   </form>
 </div>
-<!-- <input type="text" [formControl]="name">
-value:{{name.value}}
-<button (click)="updateName()">update</button> -->

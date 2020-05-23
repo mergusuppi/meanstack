@@ -11,7 +11,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ChangePwComponent } from './change-pw/change-pw.component';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: 'changepw', pathMatch: 'full' },
+  { path: '', redirectTo: 'register', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'changepw', component: ChangePwComponent } ,

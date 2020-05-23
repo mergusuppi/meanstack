@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router'
 
@@ -10,21 +10,25 @@ import { Router } from '@angular/router'
 })
 export class LoginComponent implements OnInit {
   // name = new FormControl('supriya');
-  loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl('')
-  });
+  loginForm: FormGroup;
+
   constructor(private userService: UserService,
-    private _router: Router
-  ) { }
+    private _router: Router, private fb: FormBuilder) { }
+
   ngOnInit() {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required], // min && max
+    });
   }
+
   loginUser() {
     console.log(this.loginForm.value);
     this.userService.authenticate(this.loginForm.value);
     this.loginForm.reset();
   }
-  onButtonClick():void{
+   
+  onButtonClick(): void {
     this._router.navigate(['/changepw']);
   }
   // updateName(){

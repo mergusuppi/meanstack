@@ -8,12 +8,13 @@ import { UserService } from '../user.service';
   styleUrls: ['./change-pw.component.css']
 })
 export class ChangePwComponent implements OnInit {
+  errorMessage: String;
   changepwForm: FormGroup;
   constructor(private userService: UserService, private fb: FormBuilder) { }
   ngOnInit() {
     this.changepwForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required], // min && max
+      password: ['',Validators.compose([Validators.required,Validators.minLength(6),Validators.maxLength[30]])],
       confirm: ['', Validators.required]
     }, { validator: this.checkPassword });
   }
@@ -31,5 +32,20 @@ export class ChangePwComponent implements OnInit {
   }
   resetForm() {
     this.changepwForm.reset()
+  }
+  registerUser() {
+    this.errorMessage = '';
+    this.userService.register(this.changepwForm.value).subscribe((data) => {
+      if (data) {
+        this.onClick();
+      }
+    }, (err) => {
+      console.log('errr :: ', err.error.message)
+      this.errorMessage = err ? err.error.message : 'something went wrong';
+    });
+  }
+  onClick(): void {
+       this.changepwForm.reset();
+
   }
 }

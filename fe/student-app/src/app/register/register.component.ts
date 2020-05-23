@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 
@@ -10,17 +10,27 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   errorMessage: String;
-  registerForm = new FormGroup({
-    firstname: new FormControl(''),
-    lastname: new FormControl(''),
-    contact: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl('')
-  });
-  constructor(private userService: UserService,
+  registerForm: FormGroup;
+
+  constructor(private userService: UserService, private fb: FormBuilder,
     private router: Router) { }
 
   ngOnInit() {
+    this.registerForm = this.fb.group({
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      contact: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      gender: ['male', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['',Validators.compose([Validators.required,Validators.minLength(6),Validators.maxLength[30]])],
+      confirm: ['', Validators.required],
+    }, { validator: this.checkPassword });
+  }
+
+  checkPassword(group: FormGroup) {
+    const { password, confirm } = group.value;
+    return password === confirm ? null : { misMatch: true }
   }
   registerUser() {
     this.errorMessage = '';
@@ -35,6 +45,6 @@ export class RegisterComponent implements OnInit {
     // this.registerForm.reset();
   }
   onClick(): void {
-    this.router.navigate(['/login']);
+    this.registerForm.reset();
   }
 }
