@@ -10,12 +10,14 @@ import { RegisterComponent } from './register/register.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ChangePwComponent } from './change-pw/change-pw.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AuthGuard } from './auth.guard';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'changepw', component: ChangePwComponent } ,
+  { path: 'changepw', component: ChangePwComponent },
+  { path: 'profile', component: ProfileComponent ,canActivate:[AuthGuard]},
   { path: '**', component: PageNotFoundComponent }
 ];
 
