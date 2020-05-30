@@ -11,6 +11,7 @@ const port=3200;
 app.use(logger('dev'));
 app.use(cors());
 app.use(express.json());
+app.use('/uploads',express.static('public'))
 app.use(express.urlencoded({extended:true}));
 
 //mongoose connection
