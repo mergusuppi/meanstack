@@ -1,9 +1,10 @@
 <div>
   <ul>
-    <li routerLinkActive="active"><a routerLink="register">Home</a></li>
-    <li routerLinkActive="active"><a routerLink="login">Login</a></li>
-    <li routerLinkActive="active"><a routerLink="changepw"></a></li>
-    <li routerLinkActive="active"><a routerLink="profile">profile</a></li>
+    <li *ngIf="!isLoggedIn" routerLinkActive="active"><a routerLink="register">Home</a></li>
+    <li *ngIf="!isLoggedIn" routerLinkActive="active"><a routerLink="login">Login</a></li>
+    <li *ngIf="isLoggedIn" routerLinkActive="active"><a routerLink="changepw"></a></li>
+    <li *ngIf="isLoggedIn" routerLinkActive="active"><a routerLink="profile">profile</a></li>
+    <li *ngIf="isLoggedIn" ><a (click)="onLogout()">logout</a></li>
   </ul>
 </div>
 <router-outlet></router-outlet>

@@ -16,6 +16,7 @@
         *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)"
         class="alert alert-danger">Please enter password</span>
     </div>
+    <input type="file" id="myFile" formControlName="myFile" name="avatar" (change)="selectFile($event)">
     <div class="buttons">
       <button type="submit" class="submitBtn">Login</button>
       <button class="changepwBtn" (click)="onButtonClick()">Change password</button></div>

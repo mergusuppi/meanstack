@@ -1,6 +1,18 @@
-const { decodeTokenValue } = require('../utils');
-const multer=require('multer');
-const upload=multer({dest:'public/'});
+const { decodeTokenValue, fileRename } = require('../utils');
+const multer = require('multer');
+// const upload=multer({dest:'public/'});
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public')
+    },
+    filename: function (req, file, cb) {
+        const filename = fileRename(file);
+
+        cb(null, filename);
+    }
+});
+const upload = multer({ storage });
+
 
 
 
@@ -39,4 +51,4 @@ function checkHeaderValues(req, res, next) {
         badRequest(res, { message: 'missing headers' });
     }
 }
-module.exports = { checkHeaderValues, verifyAuthentication ,upload}
+module.exports = { checkHeaderValues, verifyAuthentication, upload }

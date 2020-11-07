@@ -3,6 +3,6 @@ const router = express.Router();
 const studentRoute = require('./student');
 const middlewares=require('../middlewares')
 
-router.use('/student',middlewares.checkHeaderValues, studentRoute);
+router.use('/student', studentRoute);
 
 module.exports = router;    

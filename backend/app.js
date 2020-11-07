@@ -1,30 +1,31 @@
 //declaration
-const express=require('express');
-const mongoose=require('mongoose');
-const logger=require('morgan');
-const cors=require('cors');
-const routes=require('./routes');
+const express = require('express');
+const mongoose = require('mongoose');
+const logger = require('morgan');
+const cors = require('cors');
+require('dotenv').config();
+const routes = require('./routes');
 const app = express();
-const port=3200;
+const port = process.env.PORT;
 
 //middleware
 app.use(logger('dev'));
 app.use(cors());
 app.use(express.json());
-app.use('/uploads',express.static('public'))
-app.use(express.urlencoded({extended:true}));
+app.use('/uploads', express.static('uploads'))
+app.use(express.urlencoded({ extended: true }));
+app.use('/', routes);
 
 //mongoose connection
-mongoose.connect('mongodb://localhost:27017/supriya', { useUnifiedTopology: true });
+mongoose.connect(`${process.env.MONGODB_URL}${process.env.DB_NAME}`, { useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
     // we're connected!
     console.log('Mongo DB connected');
+    app.listen(port, () => console.log('server listening on port' + port));
 });
 
-app.use('/',routes);
 
 //connection establish
-app.listen(port, () => console.log('server listening on port' + port));
-module.exports=app;
+module.exports = app;

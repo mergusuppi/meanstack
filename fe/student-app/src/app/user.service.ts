@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 const baseApi = 'http://localhost:3200';
 
 @Injectable({
@@ -9,7 +11,8 @@ const baseApi = 'http://localhost:3200';
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private auth: AuthService) { }
 
   authenticate(body): Observable<any> {
     return this.http.post(`${baseApi}/student/login`, body).pipe(
@@ -24,17 +27,17 @@ export class UserService {
       return data;
     }, err => err);
   }
-
+  fileUpload(body, options = {}) {
+    return this.http.post(`${baseApi}/student/profile`, body, options);
+  }
+  getStudentList() {
+    return this.http.get(`${baseApi}/student`);
+  }
   handleError(error) {
-    // let errorMessage = '';
-    // if (error.error instanceof ErrorEvent) {
-    //   // client-side error
-    //   errorMessage = `Error: ${error.error.message}`;
-    // } else {
-    //   // server-side error
-    //   errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    // }
-    // window.alert(errorMessage);
+    console.log(error);
+    if (error.status === 401) {
+      return error
+    }
     return throwError(error);
   }
 }

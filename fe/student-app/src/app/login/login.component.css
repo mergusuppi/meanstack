@@ -1,6 +1,6 @@
 .form-inline {
   display: inline-block;
-  background-image: url("bg.jpg");
+  background-image: url("/src/assets/bg.jpg");
   padding: 40px 15px;
   margin: 15px;
   height: 100%;

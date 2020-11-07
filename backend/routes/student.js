@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Student } = require('../models');
-const { generateToken } = require('../utils');
+const { generateToken, fileMove, fileRename, emailNotification } = require('../utils');
 const { verifyAuthentication, upload } = require('../middlewares')
 
 function success(res, data) {
@@ -16,22 +16,20 @@ function badResponse(res, data) {
     res.status(400).json(data);
 
 }
-router.post('/profile', upload.single('avatar'), function (req, res, next) {
-    /* 
-    {
-        "fieldname": "avatar",
-        "originalname": "DSC02852.JPG",
-        "encoding": "7bit",
-        "mimetype": "image/jpeg",
-        "destination": "uploads/",
-        "filename": "5adba472bca4ab6310f9107bdf10e43d",
-        "path": "uploads\\5adba472bca4ab6310f9107bdf10e43d",
-        "size": 5183130
-      } 
-      */
-    //  fileType , filename = filename . fileType;
+router.post('/profile', upload.single('avatar'), async function (req, res, next) {
     const file = req.file;
-    res.json(file);
+    const body = req.body;
+    const src = file.path;
+    const fileName = fileRename(file);
+    const dst = `uploads/${body.id}`;
+    const isDone = await fileMove(src, dst, fileName);
+    if (isDone) {
+        const filePath = `${dst}/${fileName}`;
+        res.json({ ...body, filePath });
+    }
+    else {
+        res.status(500).json({ message: 'uploading failed' })
+    }
 })
 
 router.post('/', (req, res) => {
@@ -76,12 +74,13 @@ router.post('/login', (req, res) => {
     }
 })
 
-router.get('/', verifyAuthentication, (req, res) => {
+router.get('/', (req, res) => {
     Student.find({}, (err, data) => {
         if (err) {
             // res.status(500).json(err);
             serverError(res, err);
         } else {
+            emailNotification();
             success(res, data)
         }
     });
@@ -93,7 +92,6 @@ router.put('/', (req, res) => {
             Student.updateOne({ _id: data._id }, { $set: { password: req.body.password } }, (err, data) => {
                 if (err) {
                     serverError(res, err)
-                } else {
                     success(res, { message: 'password updated succesfully' });
                 }
             })
