@@ -1,3 +1,79 @@
-<p>
-  register works!
-</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <form class="form-inline" [formGroup]="registerForm" (ngSubmit)="registerUser()">
+                <h3>REGISTER</h3>
+                <span class="error" *ngIf="errorMessage">{{errorMessage}}</span>
+                <div class="form-group"><input type="text" class="inputs" placeholder="Firstname"
+                        formControlName="firstname" required>
+                    <span
+                        *ngIf="registerForm.invalid && (registerForm.controls.firstname.dirty || registerForm.controls.firstname.touched)"
+                        class="alert alert-danger">
+                        <span *ngIf="registerForm.hasError('required','firstname')">Please enter firstname</span>
+                    </span>
+                </div>
+                <input type="text" class="inputs" placeholder="Lastname" formControlName="lastname">
+                <div class="form-group"><input type="text" class="inputs" placeholder="Contact"
+                        formControlName="contact" required>
+                    <span
+                        *ngIf="registerForm.invalid && (registerForm.controls.contact.dirty || registerForm.controls.contact.touched)"
+                        class="alert alert-danger">Please enter your mob.No
+                    </span>
+                </div>
+                <input type="date" class="inputs" formControlName="dateOfBirth">
+                <div class="gender">
+                    <h5 class="custom-radio">Gender:</h5>
+                        <div class=" custom-radio">
+                            <input id="male" type="radio" class="custom-control-input" value="male" name="gender"
+                                formControlName="gender">
+                            <label class="custom-control-label" for="male">Male</label>
+                        </div>
+
+                        <div class=" custom-radio">
+                            <input id="female" type="radio" class="custom-control-input" value="female" name="gender"
+                                formControlName="gender">
+                            <label class="custom-control-label" for="female">Female</label>
+                        </div>
+
+                        <div class="invalid-feedback" *ngIf="isSubmitted && myForm.errors?.required">
+                            <p>Please select any value</p>
+                        </div>
+                </div>
+
+                <div><input type=" email" class="inputs" placeholder="Email" formControlName="email" required>
+                    <span
+                        *ngIf="registerForm.invalid && (registerForm.controls.email.dirty || registerForm.controls.email.touched)"
+                        class="alert alert-danger">
+                        <span *ngIf="registerForm.hasError('required', 'email')">Please enter email address</span>
+                        <span
+                            *ngIf="registerForm.controls.email.invalid && registerForm.controls.email.value !== ''">Please
+                            enter valid email address</span>
+                    </span>
+                </div>
+                <div><input type="password" class="inputs" placeholder="password" formControlName="password" required
+                        minlength="6" maxlength="30">
+                    <span
+                        *ngIf="registerForm.invalid && (registerForm.controls.password.dirty || registerForm.controls.password.touched)"
+                        class="alert alert-danger">
+                        <span *ngIf="registerForm.hasError('required', 'password')">Please enter password</span>
+                        <span *ngIf="registerForm.hasError('minlength','password')">minlength is 6</span>
+                        <span *ngIf="registerForm.hasError('maxlength','password')">maxlength is 30</span>
+                    </span>
+
+                </div>
+                <div><input type="password" class="inputs" placeholder="confirm password" formControlName="confirm"
+                        required>
+                    <span
+                        *ngIf="registerForm.invalid && (registerForm.controls.confirm.dirty || registerForm.controls.confirm.touched)"
+                        class="alert alert-danger">
+                        <span *ngIf="registerForm.hasError('required', 'confirm')">Please enter confirm password</span>
+                        <span *ngIf="registerForm.hasError('misMatch')">Confirm password mismatched</span>
+                    </span>
+                </div>
+                <div class="buttons">
+                    <button type="submit" class="submitBtn">Submit</button>
+                    <button class="loginBtn" (click)="onClick()">Already have an account</button></div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+.form-inline {
+  display: inline-block;
+  padding: 40px 15px;
+  
+}
+.container {
+  text-align: center;
+  background-image: url("/src/assets/bg.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 15px;
+  background-size: cover;
+}
+
+.inputs {
+  display: block;
+  margin: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  border: 0px;
+}
+.radio{
+  display: inline;
+}
+.gender{
+  margin: 0px;
+  
+}
+.custom-radio{
+  display: inline;
+}
+h3 {
+  margin: 20px 0px ;
+}
+.submitBtn {
+  padding: 5px 15px;
+  font-size: 15px;
+  font-weight: 600;
+  background-color: rgb(37, 146, 219);
+  border-radius: 10px;
+  margin: 5px;
+  border: 1px solid black;
+}
+.loginBtn{
+  border: 0px;
+  background: 0px;
+  display: block;
+  margin: 5px;
+}
+.buttons{
+  display: inline-block;
+}
